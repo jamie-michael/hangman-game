@@ -12,13 +12,12 @@ const playAgainYesBtn = document.getElementById('play-again__yes');
 const playAgainNoBtn = document.getElementById('play-again__no');
 
 const wordContainer = document.querySelector('.word-container');
-const navBar = document.querySelector('.nav-bar ul').children;
 const quitMenu = document.querySelector('.quit-menu');
 const quitNoBtn = document.querySelector('#quit__no');
 const quitYesBtn = document.querySelector('#quit__yes');
 const keyboard = document.getElementById('keyboard');
-const pvpBtn = document.getElementById('pvp-btn');
-const pveBtn = document.getElementById('pve-btn');
+const pvpBtn = document.querySelector('.pvp-btn');
+const pveBtn = document.querySelector('.pve-btn');
 const backdrop = document.querySelector('#backdrop');
 const quitBtn = document.querySelector('.quit');
 const page = document.getElementById('page');
