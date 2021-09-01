@@ -6,8 +6,90 @@
 }
 
 
+/* ==================== buttons ======================= */
+.btn {
+  border-radius: 5px;
+  cursor: pointer;
+
+}
+.btn-black {
+	font-weight: bold;
+	color: white;
+	background: #333333;
+	padding: 7px 30px;
+	border: #333 solid 2px;
+	text-transform: uppercase;
+}
+
+.btn-black:active {
+	transform: scale(1.05);
+}
+
+.btn-black:hover {
+	/* background: #999;
+	border: #999 solid 2px; */
+	opacity: 40%;
+}
+
+.btn-white {
+	font-weight: bold;
+	color: #333;
+	background: #fff;
+	padding: 7px 30px;
+	border: #333 solid 2px;
+	text-transform: uppercase;
+}
+.btn-white:active {
+	transform: scale(1.05);
+	border: #404040 solid 2px;
+	color: #404040;
+}
+
+.btn-white:hover {
+	/* background: #999;
+	border: #999 solid 2px;
+	color: #fff; */
+	opacity: 40%;
+
+}
 
 
+.yes-btn {
+	margin: 0 5px;
+	font-size: 0.9rem;
+	font-weight: bold;
+	color: white;
+	background: #333333;
+	padding: 7px 30px;
+	border: #333 solid 2px;
+	text-transform: uppercase;
+	border-radius: 5px;
+	cursor: pointer;
+}
+
+.no-btn {
+	margin: 0 5px;
+	font-size: 0.9rem;
+	font-weight: bold;
+	color: #333;
+	background: #fff;
+	padding: 7px 30px;
+	border: #333 solid 2px;
+	text-transform: uppercase;
+	border-radius: 5px;
+	cursor: pointer;
+}
+.yes-btn:hover {
+	background: #49b146;
+	border: #49b146 solid 2px;
+	color: #333;
+}
+
+.no-btn:hover {
+	background: #ff4949;
+	border: #ff4949 solid 2px;
+	color: #fff;
+}
 
 
 /* ==================== Grid system (flex) ======================= */
@@ -16,6 +98,10 @@
 	justify-content: center;
 	align-items: center;
   text-align: center;
+}
+
+.grid-column {
+  flex-direction: column;
 }
 
 /* Whole */

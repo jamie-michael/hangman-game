@@ -11,7 +11,7 @@ const cancelGo = document.getElementById('cancel__go');
 const playAgainYesBtn = document.getElementById('play-again__yes');
 const playAgainNoBtn = document.getElementById('play-again__no');
 
-const wordContainer = document.querySelector('.word-container');
+const wordContainer = document.querySelector('.word-wrapper');
 const quitMenu = document.querySelector('.quit-menu');
 const quitNoBtn = document.querySelector('#quit__no');
 const quitYesBtn = document.querySelector('#quit__yes');
@@ -206,13 +206,13 @@ const addChosenWord = () => {
 };
 
 const showKeyboard = () => {
-	keyboard.classList.add('show-keyboard');
-	wordContainer.classList.add('word-container__move');
+	keyboard.classList.add('kb-show');
+	wordContainer.classList.add('move');
 };
 
 const hideKeyboard = () => {
-	keyboard.classList.remove('show-keyboard');
-	wordContainer.classList.remove('word-container__move');
+	keyboard.classList.remove('kb-show');
+	wordContainer.classList.remove('move');
 };
 
 const removeClass = (element, className) => {
