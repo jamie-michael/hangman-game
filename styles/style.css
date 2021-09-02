@@ -86,6 +86,11 @@ h3 {
 	border: var(--dark-grey-color) 1px solid;
 }
 
+.site-header .quit-btn {
+	display: none;
+}
+
+
 /* ============== Main content =============== */
 .main-content {
 	padding: 2rem;
@@ -95,10 +100,6 @@ h3 {
 }
 
 /* ============== Game image =============== */
-.image-wrapper {
-	border: 1px solid black;
-}
-
 .image-wrapper img {
 	width: 350px;
 }
@@ -169,12 +170,11 @@ h3 {
 
 /* ============== Menus =============== */
 
-menu .menu-box {
-	align-items: flex-start;
-	display: none;
+menu .modal {
+	visibility: hidden;
 	background-color: #fff;
 	position: absolute;
-	top: 200px;
+	top: 30%;
 	width: 600px;
 	padding: 25px;
 	border-radius: 20px;
@@ -196,19 +196,18 @@ menu .backdrop {
 	display: flex !important;
 }
 
-menu .menu-box .game-setup {
-	display: none;
+menu .game-setup-modal {
+	visibility: hidden;
 	flex-direction: column;
 	font-weight: bold;
 }
 
-menu .menu-box .game-setup h2 {
+menu .game-setup-modal h2 {
 	font-weight: bold;
 	margin-bottom: 50px;
 }
 
-menu .menu-box .game-setup input {
-
+menu .game-setup-modal input {
 	width: 400px;
 	height: 50px;
 	border: #333333 solid 2px;
@@ -221,7 +220,7 @@ menu .menu-box .game-setup input {
 	text-transform: uppercase;
 }
 
-menu .menu-box .game-setup input:focus {
+menu .game-setup-modal input:focus {
 	border: 3px solid #333333;
 	background: #f9f9f9;
 }
@@ -232,15 +231,11 @@ menu .menu-box .game-setup input:focus {
 	box-shadow: 2px 4px 4px 2px #888888 !important;
 }
 
-menu .menu-box .game-setup button {
+menu .game-setup-modal button {
 	margin: 0 .5rem;
 	font-size: 1.5rem;
 }
 
-
-menu .menu-box .game-setup div {
-	flex-direction: row;
-}
 
 menu .menu-box .post-game {
 	display: none;
@@ -282,5 +277,13 @@ menu .menu-box .quit-menu {
 menu .menu-box .quit-menu h2 {
 	margin-bottom: 20px;
 }
+
+
+
+.modal * {
+	visibility: inherit;
+}
+/* ============== Animations =============== */
+
 
 

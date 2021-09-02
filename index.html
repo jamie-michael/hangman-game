@@ -18,7 +18,7 @@
 			<button class="nav-btn pve-btn">PVE</button>
 		</div>
 		<div class="grid one-third content-right">
-			<button class="nav-btn quit">Quit</button>
+			<button class="nav-btn quit-btn">Quit</button>
 		</div>
 	</header>
 	<section class="main-content grid grid-column">
@@ -63,38 +63,37 @@
 	</section>
 	<menu class="grid">
 		<div id="backdrop" class="backdrop"></div>
-		<div id="menu-box" class="menu-box grid">
-			<div class="game-setup grid" id="game-setup">
-				<h2>Choose a word</h2>
-				<input id="input" class="grid" type="text" autocomplete="off" />
-				<div class="grid">
-					<button class="btn-white cancel" id="cancel__go">cancel</button>
-					<button class="btn-black go" id="go">Go</button>
-				</div>
-			</div>
-			<div class="post-game grid" id="post-game-tab">
-				<h2 id="result"></h2>
-				<div class="answer" id="answer"></div>
-				<div class="stats">
-					<p>Time taken - 2:34</p>
-					<p id="lives-remaining"></p>
-				</div>
-				<img id="result-image" src="" alt=""/>
-				<p class="play-again">Play again?</p>
-				<div class="post-game__nav grid">
-					<button id="play-again__no" class="no-btn">no</button>
-					<button id="play-again__yes" class="yes-btn">yes</button>
-				</div>
-	
-			</div>
-			<div class="quit-menu grid">
-				<h2>Are you sure?</h2>
-				<div class="grid">
-					<button id="quit__no" class="no-btn">no</button>
-					<button id="quit__yes" class="yes-btn">yes</button>
-				</div>
+		<div class="modal game-setup grid">
+			<h2>Choose a word</h2>
+			<input id="input" class="grid" type="text" autocomplete="off" />
+			<div class="grid">
+				<button class="btn-white cancel" id="cancel__go">cancel</button>
+				<button class="btn-black go" id="go">Go</button>
 			</div>
 		</div>
+		<!-- <div class="modal post-game grid">
+			<h2 id="result"></h2>
+			<div class="answer" id="answer"></div>
+			<div class="stats">
+				<p>Time taken - 2:34</p>
+				<p id="lives-remaining"></p>
+			</div>
+			<img id="result-image" src="" alt=""/>
+			<p class="play-again">Play again?</p>
+			<div class="post-game__nav grid">
+				<button id="play-again__no" class="no-btn">no</button>
+				<button id="play-again__yes" class="yes-btn">yes</button>
+			</div>
+		</div>
+	
+		<div class="modal quit-menu grid">
+			<h2>Are you sure?</h2>
+			<div class="grid">
+				<button id="quit__no" class="no-btn">no</button>
+				<button id="quit__yes" class="yes-btn">yes</button>
+			</div>
+		</div> -->
+		
 	</menu>
 	
 	<script src="js/app.js"></script>
