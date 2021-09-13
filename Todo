@@ -1,15 +1,9 @@
-fix backdrop fade-out - doesnt fade out, instead just goes straight to not being visible
-
-add quitBtn functionality
-
 create landing page
-    transition to game screen
 
+add PVE mode
 
-    	/* transform: translateY(+500px);
-	transition: transform 0.5s ease-in-out; */
+replace top mid nav with 'HANGMAN' during gamemode
 
-    /* .letters-container .show-keyboard {
-	transform: translateY(0px);
-} */
+btn hover state
 
+fix when click on backdrop in postgame, it messes the game up.

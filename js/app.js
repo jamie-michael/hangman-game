@@ -5,36 +5,34 @@ let lives = 11;
 let usedLetters = [];
 let gameMode = false;
 
-let result = document.getElementById('result');
-let livesRemaining = document.getElementById('lives-remaining');
-const cancelGo = document.getElementById('cancel__go');
-const playAgainYesBtn = document.getElementById('play-again__yes');
-const playAgainNoBtn = document.getElementById('play-again__no');
+let result = document.querySelector('.result');
+let livesRemaining = document.querySelector('.lives-remaining');
+const cancelGo = document.querySelector('.cancel__go');
+const playAgainYesBtn = document.querySelector('.play-again__yes');
+const playAgainNoBtn = document.querySelector('.play-again__no');
 
+const gameAreaContainer = document.querySelector('.main-content'); 
 const wordContainer = document.querySelector('.word-wrapper');
-const quitMenu = document.querySelector('.quit-menu');
-const quitNoBtn = document.querySelector('#quit__no');
-const quitYesBtn = document.querySelector('#quit__yes');
-const keyboard = document.getElementById('keyboard');
-const pvpBtn = document.querySelector('.pvp-btn');
-const pveBtn = document.querySelector('.pve-btn');
-const backdrop = document.querySelector('#backdrop');
-const quitBtn = document.querySelector('.quit-btn');
-const page = document.getElementById('page');
-const onScreenWord = document.getElementById('on-screen-word');
-const submitBtn = document.getElementById('submit-btn');
-const inputBox = document.getElementById('input');
-const goBtn = document.getElementById('go');
-const playAgainBtn = document.getElementById('play-again-btn');
-const postGameTab = document.getElementById('post-game-tab');
-const gameSetupTab = document.getElementById('game-setup');
-const answer = document.getElementById('answer');
-const menuBox = document.getElementById('menu-box');
+const onScreenWord = document.querySelector('.word-display');
+const keyboard = document.querySelector('.keyboard');
+const quitNoBtn = document.querySelector('.quit__no');
+const quitYesBtn = document.querySelector('.quit__yes');
+const quitBtn = document.querySelector('.quit__btn');
+const pvpBtn = document.querySelector('.pvp__btn');
+const pveBtn = document.querySelector('.pve__btn');
+const backdrop = document.querySelector('.backdrop');
+const inputBox = document.querySelector('.word__input');
+const goBtn = document.querySelector('.go');
+const postGameModal = document.querySelector('.post-game__modal');
+const gameSetupModal = document.querySelector('.game-setup__modal');
+const quitModal = document.querySelector('.quit__modal');
+const answer = document.querySelector('.answer');
+const modals = document.querySelector('.menu');
 
 let currentMenu = null;
 
-var onScreenLives = document.getElementById('image-id');
-var resultImage = document.getElementById('result-image');
+var onScreenLives = document.querySelector('.game__image');
+var resultImage = document.querySelector('.result__image');
 
 let keyboardObjects = [];
 
@@ -43,6 +41,8 @@ const LETTER_EXISTS = 'letter exists';
 const LETTER_DOES_NOT_EXIST = 'letter does not exist';
 
 const SMALL = 'small';
+
+let activeModal;
 
 const keyboardIds = [
 	'a',
@@ -109,6 +109,7 @@ const keyboardIds = [
 // 	menuRoot.append(newMenu);
 // }
 
+ 
 const updateCurrentWord = () => {
 	let updatedWord = '';
 	// ADDS LETTER(S) TO CURRENT ARRAY
@@ -133,37 +134,48 @@ const updateCurrentWord = () => {
 const updateImage = (lives) => {
 	switch (lives) {
 		case 10:
-			onScreenLives.src = 'img/h1.png';
+			// gameAreaContainer.style.backgroundImage = 'url(img/2x/h1.png)';
+			onScreenLives.src = 'img/1x/SVG/h1.svg';
 			break;
-		case 9:
-			onScreenLives.src = 'img/h2.png';
+			case 9:
+			// gameAreaContainer.style.backgroundImage = 'url(img/2x/h2.png)';
+			onScreenLives.src = 'img/1x/SVG/h2.svg';
 			break;
-		case 8:
-			onScreenLives.src = 'img/h3.png';
+			case 8:
+			// gameAreaContainer.style.backgroundImage = 'url(img/2x/h3.png)';
+			onScreenLives.src = 'img/1x/SVG/h3.svg';
 			break;
-		case 7:
-			onScreenLives.src = 'img/h4.png';
+			case 7:
+			// gameAreaContainer.style.backgroundImage = 'url(img/2x/h4.png)';
+			onScreenLives.src = 'img/1x/SVG/h4.svg';
 			break;
-		case 6:
-			onScreenLives.src = 'img/h5.png';
+			case 6:
+			// gameAreaContainer.style.backgroundImage = 'url(img/2x/h5.png)';
+			onScreenLives.src = 'img/1x/SVG/h5.svg';
 			break;
-		case 5:
-			onScreenLives.src = 'img/h6.png';
+			case 5:
+			// gameAreaContainer.style.backgroundImage = 'url(img/2x/h6.png)';
+			onScreenLives.src = 'img/1x/SVG/h6.svg';
 			break;
-		case 4:
-			onScreenLives.src = 'img/h7.png';
+			case 4:
+			// gameAreaContainer.style.backgroundImage = 'url(img/2x/h7.png)';
+			onScreenLives.src = 'img/1x/SVG/h7.svg';
 			break;
-		case 3:
-			onScreenLives.src = 'img/h8.png';
+			case 3:
+			// gameAreaContainer.style.backgroundImage = 'url(img/2x/h8.png)';
+			onScreenLives.src = 'img/1x/SVG/h8.svg';
 			break;
-		case 2:
-			onScreenLives.src = 'img/h9.png';
+			case 2:
+			// gameAreaContainer.style.backgroundImage = 'url(img/2x/h9.png)';
+			onScreenLives.src = 'img/1x/SVG/h9.svg';
 			break;
-		case 1:
-			onScreenLives.src = 'img/h10.png';
+			case 1:
+			// gameAreaContainer.style.backgroundImage = 'url(img/2x/h10.png)';
+			onScreenLives.src = 'img/1x/SVG/h10.svg';
 			break;
-		case 0:
-			onScreenLives.src = 'img/h11.png';
+			case 0:
+			// gameAreaContainer.style.backgroundImage = 'url(img/2x/h11.png)';
+			onScreenLives.src = 'img/1x/SVG/h11.svg';
 			break;
 	}
 };
@@ -205,13 +217,11 @@ const addChosenWord = () => {
 	updateCurrentWord();
 };
 
-const showKeyboard = () => {
-	keyboard.classList.add('kb-show');
+const showWord = () => {
 	wordContainer.classList.add('move');
 };
 
-const hideKeyboard = () => {
-	keyboard.classList.remove('kb-show');
+const hideWord = () => {
 	wordContainer.classList.remove('move');
 };
 
@@ -224,13 +234,23 @@ const addClass = (element, className) => {
 };
 
 const removeClassFromActiveMenu = (className) => {
-	const menu = menuBox.children;
+	const modals = modals.children;
 	for (let i = 0; i < menu.length; i++) {
 		if (menu[i].classList.contains(className)) {
 			menu[i].classList.remove(className);
 		}
 	}
+
+
 };
+
+// const activeModal = () => {
+// 	modals.forEach(element => {
+// 		if (element.classList.contains('show') && !(element.classList.contains('backdrop'))) {
+// 			return element;
+// 		}
+// 	});
+// }
 
 const addClassToActiveMenu = (className) => {
 	const menu = menuBox.children;
@@ -241,70 +261,108 @@ const addClassToActiveMenu = (className) => {
 	}
 };
 
-const openMenu = (menu, size) => {
-	if (size === SMALL) {
-		menuBox.style.width = '250px';
-		menuBox.style.height = '100px';
+// ================= add the string 'switch' as a second parameter to leave the backdrop in place  ====================  
+// ================= Do this when switching between modals ============================================================  
+const openModal = (element, switchModal) =>
+	// We create a Promise and return it
+	new Promise((resolve, reject) => {
+		if (switchModal === 'switch') {
+			switchModal = true;
+		}
+		const node = element;
+		
+		// normal
+		if (!(switchModal === true)) { 
+			addClass(backdrop, 'show')
+			addClass(backdrop, 'fade-in-backdrop')
+		}
+		addClass(node, 'show');
+		addClass(node, 'fade-in');
+		
+	function handleAnimationEnd(event) {
+		event.stopPropagation();
+		if (!(switchModal === true)) {
+			removeClass(backdrop, 'fade-in-backdrop');
+		}
+		removeClass(node, 'fade-in');
+		activeModal = node;
+		resolve('Animation ended');
 	}
-	menuBox.style.opacity = '0%';
-	backdrop.style.opacity = '0%';
-	addClass(menuBox, 'show');
-	addClass(backdrop, 'show');
-	addClass(menu, 'show');
-	setTimeout(function () {
-		menuBox.style.removeProperty('opacity');
-		backdrop.style.removeProperty('opacity');
-		addClass(menuBox, 'fade-in');
-		addClass(backdrop, 'fade-in');
-	}, 1);
 
-	setTimeout(function () {
-		removeClass(menuBox, 'fade-in');
-		removeClass(backdrop, 'fade-in');
-	}, 251);
-};
+	node.addEventListener('animationend', handleAnimationEnd, {once: true});
+});
+  
+const closeModal = (element, switchModal) =>
+	// We create a Promise and return it
+	new Promise((resolve, reject) => {
+	if (switchModal === 'switch') {
+		switchModal = true;
+	}
+	const node = element;
+	
+	if (!(switchModal === true)) {
+		addClass(backdrop, 'fade-out-backdrop')
+	}
+	addClass(node, 'fade-out');
 
-const closeMenu = () => {
-	addClass(menuBox, 'fade-out');
-	addClass(backdrop, 'fade-out');
 
-	setTimeout(function () {
-		removeClassFromActiveMenu('show');
-		removeClass(menuBox, 'show');
-		removeClass(menuBox, 'fade-out');
-		removeClass(backdrop, 'show');
-		removeClass(backdrop, 'fade-out');
-		menuBox.style.removeProperty('width');
-		menuBox.style.removeProperty('height');
-	}, 250);
-};
+	function handleAnimationEnd(event) {
+		event.stopPropagation();
 
-const switchMenu = (nextMenu) => {
-	addClassToActiveMenu('fade-out');
+		removeClass(node, 'fade-out');
+		removeClass(node, 'show');
+		if (!(switchModal === true)) {
+			removeClass(backdrop, 'fade-out-backdrop');
+			removeClass(backdrop, 'show');
 
-	setTimeout(function () {
-		removeClassFromActiveMenu('show');
-		removeClassFromActiveMenu('fade-out');
+		}
+		resolve('Animation ended');
+	}
 
-		nextMenu.style.opacity = '0%';
-		addClass(nextMenu, 'show');
-		setTimeout(function () {
-			addClass(nextMenu, 'fade-in');
-			nextMenu.style.removeProperty('opacity');
-		}, 1);
+	node.addEventListener('animationend', handleAnimationEnd, {once: true});
+});
 
-		setTimeout(function () {
-			removeClass(nextMenu, 'fade-in');
-		}, 251);
-	}, 250);
-};
+const showKeyboard = (element) =>
+	// We create a Promise and return it
+	new Promise((resolve, reject) => {
+	
+	const node = element;
+	
+	
+	addClass(node, 'fade-in');
 
-const closeInput = () => {
-	inputBox.classList.add('close-input');
-	setTimeout(function () {
-		inputBox.classList.remove('close-input');
-	}, 250);
-};
+
+
+	function handleAnimationEnd(event) {
+		event.stopPropagation();
+		keyboard.style.opacity = '100%'
+		removeClass(node, 'fade-in');
+		resolve('Animation ended');
+	}
+
+	node.addEventListener('animationend', handleAnimationEnd, {once: true});
+});
+
+const hideKeyboard = (element) =>
+	// We create a Promise and return it
+	new Promise((resolve, reject) => {
+	
+	const node = element;
+	
+	
+	addClass(node, 'fade-out');
+
+
+
+	function handleAnimationEnd(event) {
+		event.stopPropagation();
+		keyboard.style.opacity = '0%'
+		removeClass(node, 'fade-out');
+		resolve('Animation ended');
+	}
+
+	node.addEventListener('animationend', handleAnimationEnd, {once: true});
+});
 
 const resetGame = () => {
 	resetButtons();
@@ -315,6 +373,7 @@ const resetGame = () => {
 	usedLetters = [];
 	onScreenLives.src = 'img/hangman.png';
 	onScreenWord.textContent = 'HANGMAN';
+	hideWord();
 };
 
 const addKeyboardEventListeners = () => {
@@ -356,67 +415,81 @@ const playerWins = () => {
 	onScreenLives.src = 'img/welldone.png';
 	resultImage.src = 'img/you-win.gif';
 	livesRemaining.textContent = `With ${lives} lives remaining!`;
-	openMenu(postGameTab);
+	openModal(postGameModal);
 };
 
 const playerLoses = () => {
 	answer.textContent = '!!  ' + chosenWord + '  !!';
 	resultImage.src = 'img/you-LOSE.gif';
-	openMenu(postGameTab);
+	openModal(postGameModal);
 };
 //  ---------------------------------------------------------- EVENT HANDLERS --------
 
 const quitYesBtnHandler = () => {
 	resetGame();
-	hideKeyboard();
+	hideKeyboard(keyboard);
+	hideWord();
 	quitBtn.classList.remove('show');
 	addClass(pvpBtn, 'nav-btn');
-	removeClass(pvpBtn, 'active-nav');
+	removeClass(pvpBtn, 'active-nav-btn');
 	gameMode = false;
-	closeMenu();
+	closeModal(activeModal)
 };
 
 const quitNoBtnHandler = () => {
-	closeMenu();
+	closeModal(activeModal);
 };
 const quitBtnHandler = () => {
-	openMenu(quitMenu, SMALL);
+	openModal(quitModal)
 };
 
 const backdropHandler = () => {
-	// closeMenu();
+	closeModal(activeModal);
 };
 const pvpBtnHandler = () => {
 	if (!gameMode) {
-		openMenu(gameSetupTab);
+		openModal(gameSetupModal);
+		// openModal(backdrop, true);
 	}
 };
 
 const playAgainYesBtnHandler = () => {
-	switchMenu(gameSetupTab);
+	closeModal(activeModal, 'switch');
+	openModal(gameSetupModal, 'switch');
 	// alert('hello');
 };
 
 const playAgainNoBtnHandler = () => {
-	quitYesBtnHandler();
+	quitBtn.classList.remove('show');
+	addClass(pvpBtn, 'nav-btn');
+	removeClass(pvpBtn, 'active-nav-btn');
+	gameMode = false;
+	closeModal(activeModal);
+	hideKeyboard(keyboard);
+
 };
 
 const cancelGoHandler = () => {
-	closeMenu();
+	closeModal(activeModal);
+
 }
 
 
 
 const goHandler = () => {
 	if (inputBox.value) {
-		closeInput();
-		closeMenu(gameSetupTab);
-		quitBtn.classList.add('show');
+		closeModal(activeModal);
 		addChosenWord();
 		inputBox.placeholder = '';
-		showKeyboard();
-		addClass(pvpBtn, 'active-nav');
+		
+		if (gameMode === false) {
+			showKeyboard(keyboard);
+		}
+
+		showWord();
+		addClass(pvpBtn, 'active-nav-btn');
 		removeClass(pvpBtn, 'nav-btn');
+		quitBtn.classList.add('show');
 		gameMode = true;
 	} else {
 		inputBox.placeholder = 'please enter a word!';
@@ -446,7 +519,7 @@ const letterHandler = (letter) => {
 	}
 };
 
-//  ---------------------------------------------------------- WHEN PAGE HAS LOADED --------
+//  ---------------------------------------------------------- ON PAGE LOAD --------
 addKeyboardEventListeners();
 onScreenWord.textContent = 'HANGMAN';
 

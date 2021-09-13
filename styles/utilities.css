@@ -10,47 +10,38 @@
 .btn {
   border-radius: 5px;
   cursor: pointer;
+  padding: 7px 30px;
+  border: transparent solid 2px;
+  font-weight: bold;
+  text-transform: uppercase;
 
 }
 .btn-black {
-	font-weight: bold;
 	color: white;
 	background: #333333;
-	padding: 7px 30px;
 	border: #333 solid 2px;
-	text-transform: uppercase;
 }
 
 .btn-black:active {
 	transform: scale(1.05);
 }
 
-.btn-black:hover {
+.btn-black:hover,
+.btn-white:hover {
 	/* background: #999;
 	border: #999 solid 2px; */
 	opacity: 40%;
 }
 
 .btn-white {
-	font-weight: bold;
 	color: #333;
 	background: #fff;
-	padding: 7px 30px;
 	border: #333 solid 2px;
-	text-transform: uppercase;
 }
 .btn-white:active {
 	transform: scale(1.05);
 	border: #404040 solid 2px;
 	color: #404040;
-}
-
-.btn-white:hover {
-	/* background: #999;
-	border: #999 solid 2px;
-	color: #fff; */
-	opacity: 40%;
-
 }
 
 
