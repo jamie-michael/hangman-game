@@ -20,6 +20,11 @@ body {
 	overflow: hidden;
 }
 /* ============== Resets =============== */
+
+input {
+	outline: none;
+	border: none;
+}
 ul {
     list-style: none;
 }
@@ -49,7 +54,7 @@ h1 {
 }
 
 h2 {
-	font-size: 1rem;
+	font-size: 1.5rem;
 	text-transform: uppercase;
 }
 
@@ -86,7 +91,8 @@ h3 {
 	border: var(--dark-grey-color) 1px solid;
 }
 
-.site-header .active-nav-btn {
+.site-header .active-nav-btn,
+.site-header .greyed-nav-btn {
 	opacity: 20%;
 	cursor: default;
 	font-weight: 500;
@@ -95,8 +101,14 @@ h3 {
 	padding: 7px 10px;
 	border: transparent 1px solid;
 	border-radius: 7px;
+	
+}
+
+.site-header .active-nav-btn {
+	border: 1px rgb(163, 163, 163) solid;
 
 }
+
 .site-header .quit__btn {
 	display: none;
 }
@@ -227,7 +239,7 @@ menu .modal {
 	top: 40%;
 	transform: translateY(-50%);
 	padding: 3rem 6rem;
-	border-radius: 20px;
+	border-radius: 5px;
 	z-index: 15;
 }
 
@@ -257,7 +269,7 @@ menu .game-setup__modal {
 	font-weight: bold;
 }
 
-menu .game-setup__modal h2 {
+menu h2 {
 	font-weight: bold;
 	margin-bottom: 50px;
 }
@@ -285,9 +297,8 @@ menu .game-setup__modal input:focus {
 	box-shadow: 2px 4px 4px 2px #888888 !important;
 }
 
-menu .game-setup__modal button {
+menu button {
 	margin: 0 .5rem;
-	font-size: 1.5rem;
 }
 
 
@@ -332,6 +343,18 @@ menu .quit__modal h2 {
 	margin-bottom: 20px;
 }
 
+menu .pve-game-setup__modal {
+}
+menu .pve-game-setup__modal form {
+	padding-bottom: 2rem;
+	font-size: 1.5rem;
+}
+menu .pve-game-setup__modal input {
+	border: 2px solid #333;
+	width: 3rem;
+	text-align: center;
+}
+
 
 
 .modal * {
@@ -341,15 +364,15 @@ menu .quit__modal h2 {
 
 .fade-in {
 	animation-name: fade;
-	animation-duration: .3s;
-	animation-timing-function: ease-out;
+	animation-duration: .4s;
+	animation-timing-function: ease-in-out;
 
 }
 
 .fade-out {
 	animation-name: fade;
 	animation-duration: .1s;
-	animation-timing-function: ease-in;
+	animation-timing-function: ease-in-out;
 	animation-direction: reverse;
 
 }
@@ -366,7 +389,7 @@ menu .quit__modal h2 {
 
 .fade-in-backdrop {
 	animation-name: fade-backdrop;
-	animation-duration: .3s;
+	animation-duration: .1s;
 	animation-timing-function: ease-in;
 
 }

@@ -81,12 +81,23 @@
 			<h2>Choose a word</h2>
 			<input class="word__input grid" type="text" autocomplete="off" />
 			<div class="grid">
-				<button class="btn btn-white cancel cancel__go">cancel</button>
-				<button class="btn btn-black go">Go</button>
+				<button class="btn btn-white cancel__pvp-btn">cancel</button>
+				<button class="btn btn-black start__pvp-btn">Go</button>
+			</div>
+		</div>
+		<div class="modal pve-game-setup__modal grid grid-column">
+			<h2>Choose difficulty</h2>
+			<form action="">
+				<input type="number" name="lettercount" class="letter_count__input">
+				<label for="lettercount"> letters</label>
+			</form>
+			<div class="grid">
+				<button class="btn btn-white cancel__pve-btn">cancel</button>
+				<button class="btn btn-black start__pve-btn">Go</button>
 			</div>
 		</div>
 		<div class="modal post-game__modal grid">
-			<h2 class="result"></h2>
+			<p class="result"></p>
 			<div class="answer"></div>
 			<div class="stats">
 				<p>Time taken - 2:34</p>

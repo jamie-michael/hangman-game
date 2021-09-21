@@ -4,10 +4,14 @@ let chosenLetter = '';
 let lives = 11;
 let usedLetters = [];
 let gameMode = false;
+let gameModeType = '';
+let wordLengthPVE = 0;
+let wordList; 
 
 let result = document.querySelector('.result');
 let livesRemaining = document.querySelector('.lives-remaining');
-const cancelGo = document.querySelector('.cancel__go');
+const cancelPVP = document.querySelector('.cancel__pvp-btn');
+const cancelPVE = document.querySelector('.cancel__pve-btn');
 const playAgainYesBtn = document.querySelector('.play-again__yes');
 const playAgainNoBtn = document.querySelector('.play-again__no');
 
@@ -22,12 +26,15 @@ const pvpBtn = document.querySelector('.pvp__btn');
 const pveBtn = document.querySelector('.pve__btn');
 const backdrop = document.querySelector('.backdrop');
 const inputBox = document.querySelector('.word__input');
-const goBtn = document.querySelector('.go');
+const startPVPBtn = document.querySelector('.start__pvp-btn');
+const startPVEBtn = document.querySelector('.start__pve-btn');
 const postGameModal = document.querySelector('.post-game__modal');
 const gameSetupModal = document.querySelector('.game-setup__modal');
+const pveGameSetupModal = document.querySelector('.pve-game-setup__modal');
 const quitModal = document.querySelector('.quit__modal');
 const answer = document.querySelector('.answer');
 const modals = document.querySelector('.menu');
+const letterCountInput = document.querySelector('.letter_count__input');
 
 let currentMenu = null;
 
@@ -39,6 +46,9 @@ let keyboardObjects = [];
 const USED_LETTER = 'used letter';
 const LETTER_EXISTS = 'letter exists';
 const LETTER_DOES_NOT_EXIST = 'letter does not exist';
+const PVE = 'pve'; 
+const PVP = 'pvp'; 
+
 
 const SMALL = 'small';
 
@@ -203,9 +213,9 @@ const checkStoredWord = (letter) => {
 	}
 };
 
-const addChosenWord = () => {
+const renderChosenWord = (word) => {
 	//ADDS CHOSEN WORD TO THE GAME SCREEN
-	chosenWord = inputBox.value.toLowerCase();
+	chosenWord = word.toLowerCase();
 
 	for (let i = 0; i < chosenWord.length; i++) {
 		if (chosenWord[i] === ' ') {
@@ -215,6 +225,45 @@ const addChosenWord = () => {
 		}
 	}
 	updateCurrentWord();
+};
+
+const downloadNounList = () => {
+	var xhr = new XMLHttpRequest();
+
+	xhr.open('GET', 'http://www.desiquintans.com/downloads/nounlist/nounlist.txt', true);	
+
+	xhr.onload = function(){
+		wordList = this.responseText.split('\n');
+	};
+
+	xhr.onerror = function() {
+		console.log('error');
+	}
+	xhr.send();
+
+	
+}
+const generateWord = () => {
+
+	let wordCount= 0;
+	let filteredWords = wordList.filter(word => { 
+		if (word.length === wordLengthPVE) {
+			wordCount++
+			return true;
+		}
+		
+	});
+	
+	let index = Math.floor(Math.random() * wordCount) ;
+
+	chosenWord = filteredWords[index];
+	console.log(chosenWord);
+
+
+
+
+	
+	
 };
 
 const showWord = () => {
@@ -449,52 +498,115 @@ const backdropHandler = () => {
 const pvpBtnHandler = () => {
 	if (!gameMode) {
 		openModal(gameSetupModal);
-		// openModal(backdrop, true);
 	}
 };
 
+const pveBtnHandler = () => {
+	if (!gameMode) {
+		openModal(pveGameSetupModal);
+	}
+};
+
+
 const playAgainYesBtnHandler = () => {
-	closeModal(activeModal, 'switch');
-	openModal(gameSetupModal, 'switch');
-	// alert('hello');
+	if (gameModeType === PVE) {
+		closeModal(activeModal, 'switch');
+		openModal(pveGameSetupModal, 'switch');
+		
+	} else if (gameModeType === PVP){
+		closeModal(activeModal, 'switch');
+		openModal(gameSetupModal, 'switch');
+
+	}
 };
 
 const playAgainNoBtnHandler = () => {
 	quitBtn.classList.remove('show');
-	addClass(pvpBtn, 'nav-btn');
-	removeClass(pvpBtn, 'active-nav-btn');
+
+	if (gameModeType === PVE) {
+		removeClass(pveBtn, 'active-nav-btn');
+		addClass(pveBtn, 'nav-btn');
+		removeClass(pvpBtn, 'greyed-nav-btn');
+		addClass(pvpBtn, 'nav-btn');
+		
+	} else if (gameModeType === PVP){
+		removeClass(pvpBtn, 'active-nav-btn');
+		addClass(pvpBtn, 'nav-btn');
+		removeClass(pveBtn, 'greyed-nav-btn');
+		addClass(pveBtn, 'nav-btn');
+
+	}
+
 	gameMode = false;
 	closeModal(activeModal);
 	hideKeyboard(keyboard);
 
 };
 
-const cancelGoHandler = () => {
-	closeModal(activeModal);
-
-}
 
 
 
-const goHandler = () => {
+const startPVPHandler = () => {
 	if (inputBox.value) {
+		chosenWord = inputBox.value;
 		closeModal(activeModal);
-		addChosenWord();
+		renderChosenWord(chosenWord);
 		inputBox.placeholder = '';
 		
 		if (gameMode === false) {
 			showKeyboard(keyboard);
 		}
-
+		
 		showWord();
 		addClass(pvpBtn, 'active-nav-btn');
+		addClass(pveBtn, 'greyed-nav-btn');
 		removeClass(pvpBtn, 'nav-btn');
+		removeClass(pveBtn, 'nav-btn');
 		quitBtn.classList.add('show');
 		gameMode = true;
+		gameModeType = PVP;
 	} else {
 		inputBox.placeholder = 'please enter a word!';
 	}
 };
+
+const cancelPVPHandler = () => {
+	closeModal(activeModal);
+	if (gameMode === true) {
+		quitYesBtnHandler();
+	}
+
+}
+const startPVEHandler = () => {
+	wordLengthPVE = parseInt(letterCountInput.value);
+	if (wordLengthPVE > 0) {
+		generateWord();
+		renderChosenWord(chosenWord);
+		closeModal(activeModal);
+		if (gameMode === false) {
+			showKeyboard(keyboard);
+		}
+
+		showWord();
+		addClass(pveBtn, 'active-nav-btn');
+		addClass(pvpBtn, 'greyed-nav-btn');
+		removeClass(pveBtn, 'nav-btn');
+		removeClass(pvpBtn, 'nav-btn');
+		quitBtn.classList.add('show');
+		gameMode = true;
+		gameModeType = PVE;
+	} else {
+		inputBox.placeholder = 'please enter a word!';
+	}
+};
+
+const cancelPVEHandler = () => {
+	closeModal(activeModal);
+	if (gameMode === true) {
+		quitYesBtnHandler();
+	}
+
+}
 
 const letterHandler = (letter) => {
 	switch (checkStoredWord(letter)) {
@@ -522,16 +634,21 @@ const letterHandler = (letter) => {
 //  ---------------------------------------------------------- ON PAGE LOAD --------
 addKeyboardEventListeners();
 onScreenWord.textContent = 'HANGMAN';
+downloadNounList();
 
 //  --------------------------------------------------------------- EVENT LISTENERS --------
 
-goBtn.addEventListener('click', goHandler);
+startPVPBtn.addEventListener('click', startPVPHandler);
+startPVEBtn.addEventListener('click', startPVEHandler);
 
 pvpBtn.addEventListener('click', pvpBtnHandler);
+pveBtn.addEventListener('click', pveBtnHandler);
 backdrop.addEventListener('click', backdropHandler);
 quitBtn.addEventListener('click', quitBtnHandler);
 quitNoBtn.addEventListener('click', quitNoBtnHandler);
 quitYesBtn.addEventListener('click', quitYesBtnHandler);
 playAgainNoBtn.addEventListener('click', playAgainNoBtnHandler);
 playAgainYesBtn.addEventListener('click', playAgainYesBtnHandler);
-cancelGo.addEventListener('click', cancelGoHandler);
+cancelPVP.addEventListener('click', cancelPVPHandler);
+cancelPVE.addEventListener('click', cancelPVEHandler);
+

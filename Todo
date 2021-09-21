@@ -7,3 +7,6 @@ replace top mid nav with 'HANGMAN' during gamemode
 btn hover state
 
 fix when click on backdrop in postgame, it messes the game up.
+
+
+nav btns wont un-grey when playagainNo btn is pressed after PVE game, however wors fine after PVP game
