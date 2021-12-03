@@ -230,7 +230,7 @@ const renderChosenWord = (word) => {
 const downloadNounList = () => {
 	var xhr = new XMLHttpRequest();
 
-	xhr.open('GET', 'http://www.desiquintans.com/downloads/nounlist/nounlist.txt', true);	
+	xhr.open('GET', 'words.txt', true);	
 
 	xhr.onload = function(){
 		wordList = this.responseText.split('\n');
