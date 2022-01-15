@@ -472,17 +472,38 @@ const playerLoses = () => {
 	resultImage.src = 'img/you-LOSE.gif';
 	openModal(postGameModal);
 };
+const playAgainYesBtnHandler = () => {
+	if (gameModeType === PVE) {
+		closeModal(activeModal, 'switch');
+		openModal(pveGameSetupModal, 'switch');
+	} else if (gameModeType === PVP){
+		closeModal(activeModal, 'switch');
+		openModal(gameSetupModal, 'switch');
+	}
+};
+
+const resetNavBtns = () => {
+	if (gameModeType === PVE) {
+		removeClass(pveBtn, 'active-nav-btn');
+		removeClass(pvpBtn, 'greyed-nav-btn');
+	} else {
+		removeClass(pvpBtn, 'active-nav-btn');
+		removeClass(pveBtn, 'greyed-nav-btn');
+	}
+	addClass(pveBtn, 'nav-btn');
+	addClass(pvpBtn, 'nav-btn');
+	quitBtn.classList.remove('show');
+
+}
 //  ---------------------------------------------------------- EVENT HANDLERS --------
 
 const quitYesBtnHandler = () => {
 	resetGame();
 	hideKeyboard(keyboard);
 	hideWord();
-	quitBtn.classList.remove('show');
-	addClass(pvpBtn, 'nav-btn');
-	removeClass(pvpBtn, 'active-nav-btn');
 	gameMode = false;
-	closeModal(activeModal)
+	closeModal(activeModal);
+	resetNavBtns();
 };
 
 const quitNoBtnHandler = () => {
@@ -508,35 +529,11 @@ const pveBtnHandler = () => {
 };
 
 
-const playAgainYesBtnHandler = () => {
-	if (gameModeType === PVE) {
-		closeModal(activeModal, 'switch');
-		openModal(pveGameSetupModal, 'switch');
-		
-	} else if (gameModeType === PVP){
-		closeModal(activeModal, 'switch');
-		openModal(gameSetupModal, 'switch');
 
-	}
-};
+
 
 const playAgainNoBtnHandler = () => {
-	quitBtn.classList.remove('show');
-
-	if (gameModeType === PVE) {
-		removeClass(pveBtn, 'active-nav-btn');
-		addClass(pveBtn, 'nav-btn');
-		removeClass(pvpBtn, 'greyed-nav-btn');
-		addClass(pvpBtn, 'nav-btn');
-		
-	} else if (gameModeType === PVP){
-		removeClass(pvpBtn, 'active-nav-btn');
-		addClass(pvpBtn, 'nav-btn');
-		removeClass(pveBtn, 'greyed-nav-btn');
-		addClass(pveBtn, 'nav-btn');
-
-	}
-
+	resetNavBtns();
 	gameMode = false;
 	closeModal(activeModal);
 	hideKeyboard(keyboard);
