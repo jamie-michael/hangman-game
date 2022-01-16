@@ -8,6 +8,9 @@ let gameModeType = '';
 let wordLengthPVE = 0;
 let wordList; 
 
+var upgradeTime = 1;
+var seconds = upgradeTime;
+
 let result = document.querySelector('.result');
 let livesRemaining = document.querySelector('.lives-remaining');
 const cancelPVP = document.querySelector('.cancel__pvp-btn');
@@ -227,13 +230,63 @@ const renderChosenWord = (word) => {
 	updateCurrentWord();
 };
 
+
+let startTime;
+let elapsedTime = 0;
+let timerInterval;
+
+
+const timeToString = (time) => {
+	let diffInHrs = time / 3600000;
+	let hh = Math.floor(diffInHrs);
+  
+	let diffInMin = (diffInHrs - hh) * 60;
+	let mm = Math.floor(diffInMin);
+  
+	let diffInSec = (diffInMin - mm) * 60;
+	let ss = Math.floor(diffInSec);
+  
+	let diffInMs = (diffInSec - ss) * 100;
+	let ms = Math.floor(diffInMs);
+  
+	let formattedMM = mm.toString().padStart(2, "0");
+	let formattedSS = ss.toString().padStart(2, "0");
+	let formattedMS = ms.toString().padStart(2, "0");
+	
+	if (formattedMM > 0) {
+		return `Time taken: ${formattedMM}m, ${formattedSS}s.`;
+	} else {
+		return `Time taken: ${formattedSS}s.`;
+	}
+	
+  }
+
+const startTimer = () => {
+	startTime = Date.now() - elapsedTime;
+	timerInterval = setInterval(function printTime() {
+	elapsedTime = Date.now() - startTime;
+	// console.log(timeToString(elapsedTime));
+	}, 10);
+}
+
+	const pauseTimer = () => {
+	clearInterval(timerInterval);
+}
+
+const resetTimer = () => {
+	clearInterval(timerInterval);
+	elapsedTime = 0;
+}
+let listy; 
 const downloadNounList = () => {
 	var xhr = new XMLHttpRequest();
 
 	xhr.open('GET', 'words.txt', true);	
 
 	xhr.onload = function(){
-		wordList = this.responseText.split('\n');
+		wordList = this.responseText.split( /[\r\n]+/gm);
+		listy = this.responseText;
+
 	};
 
 	xhr.onerror = function() {
@@ -247,7 +300,7 @@ const generateWord = () => {
 
 	let wordCount= 0;
 	let filteredWords = wordList.filter(word => { 
-		if (word.length === wordLengthPVE) {
+		if (word.length === (wordLengthPVE)) {
 			wordCount++
 			return true;
 		}
@@ -423,6 +476,7 @@ const resetGame = () => {
 	onScreenLives.src = 'img/hangman.png';
 	onScreenWord.textContent = 'HANGMAN';
 	hideWord();
+	resetTimer();
 };
 
 const addKeyboardEventListeners = () => {
@@ -460,6 +514,8 @@ const resetButtons = () => {
 };
 
 const playerWins = () => {
+	const timer = document.querySelector('.time-taken');
+	timer.textContent = timeToString(elapsedTime);
 	answer.textContent = '!!  ' + chosenWord + '  !!';
 	onScreenLives.src = 'img/welldone.png';
 	resultImage.src = 'img/you-win.gif';
@@ -562,6 +618,7 @@ const startPVPHandler = () => {
 		quitBtn.classList.add('show');
 		gameMode = true;
 		gameModeType = PVP;
+		startTimer();
 	} else {
 		inputBox.placeholder = 'please enter a word!';
 	}
@@ -592,6 +649,8 @@ const startPVEHandler = () => {
 		quitBtn.classList.add('show');
 		gameMode = true;
 		gameModeType = PVE;
+		startTimer();
+
 	} else {
 		inputBox.placeholder = 'please enter a word!';
 	}
