@@ -525,7 +525,7 @@ const playerWins = () => {
 
 const playerLoses = () => {
 	answer.textContent = '!!  ' + chosenWord + '  !!';
-	resultImage.src = 'img/you-LOSE.gif';
+	resultImage.src = 'img/you-lose.gif';
 	openModal(postGameModal);
 };
 const playAgainYesBtnHandler = () => {
